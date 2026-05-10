@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Notes Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        :root {
+            --primary: #BB86FC;
+            --accent: #6200EE;
+            --bg: #0b0b0f;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --success: #34C759;
+            --premium: #FFD700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            outline: none;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Fundo Animado (Blobs) */
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+            filter: blur(160px);
+            border-radius: 50%;
+            z-index: -2;
+            opacity: 0.2;
+            animation: moveBlobs 25s infinite alternate ease-in-out;
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+            opacity: 0.15;
+        }
+
+        @keyframes moveBlobs {
+            0% { transform: translate(-10%, -10%) scale(1); }
+            50% { transform: translate(30%, 20%) scale(1.1); }
+            100% { transform: translate(-5%, 40%) scale(1); }
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s ease;
+        }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #fff 30%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 768px) { h1 { font-size: 3rem; } }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            max-width: 650px;
+            font-weight: 400;
+        }
+
+        .btn-download {
+            background: var(--primary);
+            color: #000;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(187, 134, 252, 0.3);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(187, 134, 252, 0.5);
+        }
+
+        .phone-mockup-container {
+            margin-top: 70px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            filter: drop-shadow(0 0 50px rgba(187, 134, 252, 0.2));
+        }
+
+        .phone-image {
+            width: 280px;
+            height: auto;
+            border-radius: 38px;
+        }
+
+        section#recursos {
+            padding: 120px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            letter-spacing: -1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateY(-8px);
+            border-color: rgba(187, 134, 252, 0.3);
+        }
+
+        .icon-box {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--accent), #4a00b0);
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .price-section {
+            padding: 120px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(98, 0, 238, 0.05) 50%, rgba(0,0,0,0) 100%);
+            position: relative;
+        }
+
+        .pricing-card {
+            display: inline-block;
+            max-width: 450px;
+            width: 100%;
+            padding: 50px;
+            position: relative;
+            border: 2px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .tag-premium {
+            background: linear-gradient(135deg, var(--premium), #b89b00);
+            color: #000;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .price-value {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 25px 0;
+            letter-spacing: -3px;
+            color: var(--premium);
+        }
+
+        .pricing-card h2 { font-size: 2.2rem; font-weight: 800; }
+
+        .price-subtitle {
+            margin-bottom: 40px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .benefits-list {
+            text-align: left;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+            color: #e4e4e7;
+        }
+
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 50px;
+        }
+
+        footer p { color: #71717a; font-size: 0.95rem; font-weight: 400; }
+    </style>
+</head>
+<body>
+
+    <div class="blob"></div>
+    <div class="blob blob-2"></div>
+
+    <header>
+        <div data-aos="fade-down" data-aos-duration="1200">
+            <h1>Simple Notes Pro</h1>
+            <p class="subtitle">O bloco de notas que combina o minimalismo do iOS com a versatilidade que você precisa.</p>
+            <a href="#" class="btn-download">
+                <i data-lucide="download"></i> Baixar na Play Store
+            </a>
+        </div>
+
+        <div class="phone-mockup-container" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">
+            <img src="print.png" alt="Demonstração do App Simple Notes Pro" class="phone-image">
+        </div>
+    </header>
+
+    <section id="recursos">
+        <h2 class="section-title" data-aos="fade-up">Por que escolher o Simple Notes Pro?</h2>
+        <div class="grid">
+            <div class="glass-card feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon-box"><i data-lucide="fingerprint" size="30" color="#fff"></i></div>
+                <h3>Segurança Total</h3>
+                <p>Proteja suas notas mais importantes com biometria (digital ou reconhecimento facial).</p>
+            </div>
+            <div class="glass-card feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box"><i data-lucide="cloud-sync" size="30" color="#fff"></i></div>
+                <h3>Sincronização Nuvem</h3>
+                <p>Sincronize opcionalmente com sua conta Google. Você manda nos seus dados.</p>
+            </div>
+            <div class="glass-card feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box"><i data-lucide="palette" size="30" color="#fff"></i></div>
+                <h3>Personalização</h3>
+                <p>Modo escuro profundo, com a opção de tema claro, app limpo e bonito!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="price-section">
+        <div class="glass-card pricing-card" data-aos="zoom-in" data-aos-duration="1000">
+            <span class="tag-premium">Oferta Única</span>
+            <h2>Experiência Premium</h2>
+            <p class="price-value">R$ 4,15</p>
+            <p class="price-subtitle">Apoie o desenvolvimento e tenha um app limpo e exclusivo para sempre.</p>
+            
+            <ul class="benefits-list">
+                <li><i data-lucide="check-circle-2" size="22" color="#34C759"></i> Sem anúncios após salvar notas</li>
+                <li><i data-lucide="check-circle-2" size="22" color="#34C759"></i> Acesso a temas exclusivos premium</li>
+                <li><i data-lucide="check-circle-2" size="22" color="#34C759"></i> Suporte prioritário do desenvolvedor</li>
+                <li><i data-lucide="check-circle-2" size="22" color="#34C759"></i> Pagamento único, uso vitalício</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Simple Notes Pro. Desenvolvido com <i data-lucide="heart" size="16" color="#FF3B30" style="fill: #ff0000;"></i> por um Brasileiro!</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true,
+            offset: 120    
+        });
+        lucide.createIcons();
+    </script>
+</body>
+</html>
