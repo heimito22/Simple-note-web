@@ -122,6 +122,7 @@
             text-decoration: none;
             color: var(--text-main);
             margin-right: auto;
+            white-space: nowrap;
         }
 
         /* Logo = ícone real do app (a arte do favicon ampliada) */
@@ -142,7 +143,7 @@
 
         .nav-links {
             display: flex;
-            gap: 4px;
+            gap: 2px;
         }
 
         .nav-links a {
@@ -150,7 +151,7 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 600;
-            padding: 9px 16px;
+            padding: 8px 13px;
             border-radius: 100px;
             transition: all 0.25s ease;
         }
@@ -173,7 +174,8 @@
             .nav-links a:not(.nav-cta) { display: none; }
         }
 
-        .lang-switch { display: flex; gap: 4px; margin-left: 12px; }
+
+        .lang-switch { display: flex; gap: 4px; margin-left: 8px; }
         .lang-switch button {
             background: transparent; border: 1px solid var(--glass-border);
             color: var(--text-muted); font: 600 0.7rem 'Plus Jakarta Sans', sans-serif;
@@ -636,6 +638,7 @@
                 <a href="#diferenciais" data-i18n="nav_dif">Diferenciais</a>
                 <a href="#premium" data-i18n="nav_premium">Premium</a>
                 <a href="#faq" data-i18n="nav_faq">FAQ</a>
+                <a href="downloads.html" data-i18n="nav_downloads">Downloads</a>
                 <a href="https://play.google.com/store/apps/details?id=com.seuusuario.simplesnotes" target="_blank" rel="noopener" class="nav-cta"><i data-lucide="download" size="15"></i><span data-i18n="nav_baixar">Baixar</span></a>
                 <div class="lang-switch" id="langSwitch" role="group" aria-label="Idioma / Language">
                     <button data-lang="pt" type="button">PT</button><button data-lang="en" type="button">EN</button><button data-lang="es" type="button">ES</button>
@@ -878,6 +881,7 @@
             <a href="#recursos" data-i18n="nav_recursos">Recursos</a>
             <a href="#premium" data-i18n="nav_premium">Premium</a>
             <a href="#faq" data-i18n="nav_faq">FAQ</a>
+            <a href="downloads.html" data-i18n="nav_downloads">Downloads</a>
         </div>
         <p><span data-i18n="foot_made">Orgulhosamente criado no Brasil</span>  <i data-lucide="heart" size="15" style="fill: #FF453A; color: #FF453A; display: inline-block; vertical-align: -2px;"></i></p>
         <p style="margin-top: 10px; font-size: 0.8rem;">&copy; 2026 Simple Notes Pro. Todos os direitos reservados.</p>
@@ -916,6 +920,7 @@
             teste.onerror = function () { img.parentElement.classList.remove('usar-print'); };
             teste.src = img.getAttribute('src');
         })();
+
     </script>
 
     <script>
@@ -923,7 +928,22 @@
     var I18N = {
       pt: {
         title: 'Simple Notes Pro | Notas minimalistas com backup no Google Drive',
-        nav_recursos: 'Recursos', nav_dif: 'Diferenciais', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Baixar',
+        nav_recursos: 'Recursos', nav_dif: 'Diferenciais', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Baixar', nav_downloads: 'Downloads',
+        dl_title: 'Baixe o Simple Notes Pro',
+        dl_sub: 'No PC (Windows) e no celular (Android) — sempre a versão mais recente.',
+        dl_recomendado: 'Recomendado',
+        dl_win_t: 'Windows — Instalador',
+        dl_win_d: 'Instala no PC, inicia com o Windows e fica na bandeja com os alarmes ativos. Sincroniza com o celular pelo Google Drive.',
+        dl_win_btn: 'Baixar para Windows',
+        dl_port_t: 'Windows — Portátil',
+        dl_port_d: 'Sem instalação: um único .exe que roda direto do pen drive ou de qualquer pasta.',
+        dl_port_btn: 'Baixar portátil',
+        dl_android_badge: 'Android',
+        dl_droid_t: 'Android — Play Store',
+        dl_droid_d: 'Atualizações automáticas pelo Google Play. O Premium vitalício é comprado por lá.',
+        dl_droid_meta: 'Atualização automática',
+        dl_droid_btn: 'Abrir na Play Store',
+        dl_erro: 'Não foi possível carregar a versão mais recente agora — use os botões acima para ir até a página de downloads.',
         hero_badge: 'Backup no Google Drive · IA · Biometria',
         hero_sub: 'O bloco de notas que redefine o minimalismo no seu Android. Notas, listas e pastas com backup automático na sua conta Google.',
         cta_download: 'Baixar na Play Store', cta_features: 'Ver recursos',
@@ -984,7 +1004,22 @@
       },
       en: {
         title: 'Simple Notes Pro | Minimalist notes with Google Drive backup',
-        nav_recursos: 'Features', nav_dif: 'Highlights', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Download',
+        nav_recursos: 'Features', nav_dif: 'Highlights', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Download', nav_downloads: 'Downloads',
+        dl_title: 'Download Simple Notes Pro',
+        dl_sub: 'On PC (Windows) and mobile (Android) — always the latest version.',
+        dl_recomendado: 'Recommended',
+        dl_win_t: 'Windows — Installer',
+        dl_win_d: 'Installs on your PC, starts with Windows and sits in the tray with alarms active. Syncs with your phone via Google Drive.',
+        dl_win_btn: 'Download for Windows',
+        dl_port_t: 'Windows — Portable',
+        dl_port_d: 'No installation: a single .exe that runs straight from a pen drive or any folder.',
+        dl_port_btn: 'Download portable',
+        dl_android_badge: 'Android',
+        dl_droid_t: 'Android — Play Store',
+        dl_droid_d: 'Automatic updates via Google Play. The lifetime Premium is purchased there.',
+        dl_droid_meta: 'Automatic update',
+        dl_droid_btn: 'Open Play Store',
+        dl_erro: 'Could not load the latest version right now — use the buttons above to go to the downloads page.',
         hero_badge: 'Google Drive backup · AI · Biometrics',
         hero_sub: 'The notepad that redefines minimalism on your Android. Notes, lists and folders with automatic backup to your Google account.',
         cta_download: 'Download on Play Store', cta_features: 'See features',
@@ -1045,7 +1080,22 @@
       },
       es: {
         title: 'Simple Notes Pro | Notas minimalistas con respaldo en Google Drive',
-        nav_recursos: 'Funciones', nav_dif: 'Destacados', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Descargar',
+        nav_recursos: 'Funciones', nav_dif: 'Destacados', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Descargar', nav_downloads: 'Descargas',
+        dl_title: 'Descarga Simple Notes Pro',
+        dl_sub: 'En la PC (Windows) y en el celular (Android) — siempre la versión más reciente.',
+        dl_recomendado: 'Recomendado',
+        dl_win_t: 'Windows — Instalador',
+        dl_win_d: 'Se instala en la PC, inicia con Windows y queda en la bandeja con las alarmas activas. Sincroniza con el celular por Google Drive.',
+        dl_win_btn: 'Descargar para Windows',
+        dl_port_t: 'Windows — Portátil',
+        dl_port_d: 'Sin instalación: un solo .exe que corre directo desde un pendrive o cualquier carpeta.',
+        dl_port_btn: 'Descargar portátil',
+        dl_android_badge: 'Android',
+        dl_droid_t: 'Android — Play Store',
+        dl_droid_d: 'Actualizaciones automáticas por Google Play. El Premium vitalicio se compra allí.',
+        dl_droid_meta: 'Actualización automática',
+        dl_droid_btn: 'Abrir Play Store',
+        dl_erro: 'No fue posible cargar la versión más reciente ahora — usa los botones de arriba para ir a la página de descargas.',
         hero_badge: 'Respaldo en Google Drive · IA · Biometría',
         hero_sub: 'La libreta que redefine el minimalismo en tu Android. Notas, listas y carpetas con respaldo automático en tu cuenta de Google.',
         cta_download: 'Descargar en Play Store', cta_features: 'Ver funciones',
