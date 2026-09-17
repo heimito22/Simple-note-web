@@ -170,8 +170,40 @@
 
         .nav-cta:hover { background: var(--primary-strong) !important; }
 
+        /* ===== Menu hambúrguer (mobile) ===== */
+        .nav-hamburger {
+            display: none;
+            align-items: center; justify-content: center;
+            width: 44px; height: 44px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .nav-hamburger:hover { background: rgba(255,255,255,0.06); }
+
         @media (max-width: 720px) {
-            .nav-links a:not(.nav-cta) { display: none; }
+            .nav-hamburger { display: flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                flex-direction: column;
+                gap: 6px;
+                padding: 18px 20px 22px;
+                background: rgba(0,0,0,0.92);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+                animation: menuSobe .3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            }
+            @keyframes menuSobe { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+            .nav-links.aberto { display: flex; }
+            .nav-links a { width: 100%; text-align: center; padding: 13px 16px; font-size: 1rem; }
+            .lang-switch { margin: 12px auto 0; justify-content: center; }
+            .lang-switch button { padding: 10px 16px; font-size: 0.78rem; }
         }
 
 
@@ -628,6 +660,11 @@
             .feature-card { padding: 34px; }
             .tab-panel { padding: 30px 24px; }
             .pricing-card { padding: 54px 28px; }
+            .hero-actions .btn-download, .hero-actions .btn-ghost { width: 100%; max-width: 360px; justify-content: center; }
+            .desktop-mockup { border-radius: 12px; }
+            section { padding-top: 90px; }
+            .section-sub { margin-bottom: 46px; }
+            .dl-card { padding: 26px 22px; }
         }
     </style>
 </head>
@@ -655,6 +692,7 @@
                 <div class="lang-switch" id="langSwitch" role="group" aria-label="Idioma / Language">
                     <button data-lang="pt" type="button">PT</button><button data-lang="en" type="button">EN</button><button data-lang="es" type="button">ES</button>
                 </div>
+                <button class="nav-hamburger" id="navHamb" type="button" aria-label="Menu"><i data-lucide="menu" size="22"></i></button>
             </div>
         </div>
     </nav>
@@ -956,6 +994,17 @@
             });
         });
 
+        // Menu hambúrguer (mobile): abre/fecha e fecha ao clicar num link
+        (function () {
+            var hamb = document.getElementById('navHamb');
+            var links = document.querySelector('.nav-links');
+            if (!hamb || !links) return;
+            hamb.addEventListener('click', function () { links.classList.toggle('aberto'); });
+            links.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', function () { links.classList.remove('aberto'); });
+            });
+        })();
+
         // Mockup: usa o print real (embutido via data URI ou print.png ao lado).
         // Se a imagem carregar, ela substitui a UI CSS fake — se falhar, a UI assume.
         (function () {
@@ -977,11 +1026,11 @@
         nav_recursos: 'Recursos', nav_dif: 'Diferenciais', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Baixar', nav_downloads: 'Downloads',
         desk_title: 'Também no Windows',
         desk_sub: 'O mesmo app, o mesmo visual OLED e a mesma conta — no PC. Inicia com o Windows e fica na bandeja com os alarmes ativos.',
-        desk_c1_t: 'Inicia com o Windows', desk_c1_d: 'Ligou o PC? O Simple Notes já está aberto — discreto na bandeja, sem atrapalhar. Os alarmes das suas tarefas tocam na hora certa, mesmo com o app em segundo plano.'
-        desk_c2_t: 'Atualiza sozinho', desk_c2_d: 'Sem baixar nada de novo: o app detecta a versão nova, baixa em segundo plano e instala quando você fecha — como a Steam, sem você perceber.'
-        desk_c3_t: 'Vinculado ao celular', desk_c3_d: 'Entre com a mesma conta Google nos dois e é a mesma vida: notas, listas, pastas e tarefas sincronizam entre PC e celular automaticamente pelo seu Drive.'
+        desk_c1_t: 'Inicia com o Windows', desk_c1_d: 'Ligou o PC? O Simple Notes já está aberto — discreto na bandeja, sem atrapalhar. Os alarmes das suas tarefas tocam na hora certa, mesmo com o app em segundo plano.',
+        desk_c2_t: 'Atualiza sozinho', desk_c2_d: 'Sem baixar nada de novo: o app detecta a versão nova, baixa em segundo plano e instala quando você fecha — como a Steam, sem você perceber.',
+        desk_c3_t: 'Vinculado ao celular', desk_c3_d: 'Entre com a mesma conta Google nos dois e é a mesma vida: notas, listas, pastas e tarefas sincronizam entre PC e celular automaticamente pelo seu Drive.',
         faq7_q: 'Existe versão para Windows?', faq7_a: 'Sim! Instalador e versão portátil na aba Downloads. O app no PC tem o mesmo visual OLED, inicia com o Windows, fica na bandeja com os alarmes e se atualiza sozinho.',
-        faq8_q: 'Como sincronizo o PC com o celular?', faq8_a: 'Entre com a mesma conta Google nos dois. O backup fica na pasta privada do seu Drive (appDataFolder) — notas, listas, pastas, tarefas, imagens e áudios chegam ao PC e ao celular automaticamente.'
+        faq8_q: 'Como sincronizo o PC com o celular?', faq8_a: 'Entre com a mesma conta Google nos dois. O backup fica na pasta privada do seu Drive (appDataFolder) — notas, listas, pastas, tarefas, imagens e áudios chegam ao PC e ao celular automaticamente.',
         dl_title: 'Baixe o Simple Notes Pro',
         dl_sub: 'No PC (Windows) e no celular (Android) — sempre a versão mais recente.',
         dl_recomendado: 'Recomendado',
@@ -1060,11 +1109,11 @@
         nav_recursos: 'Features', nav_dif: 'Highlights', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Download', nav_downloads: 'Downloads',
         desk_title: 'Also on Windows',
         desk_sub: 'The same app, the same OLED look and the same account — on your PC. Starts with Windows and sits in the tray with alarms active.',
-        desk_c1_t: 'Starts with Windows', desk_c1_d: 'Turned on the PC? Simple Notes is already open — quietly in the tray. Your task alarms ring right on time, even with the app in the background.'
-        desk_c2_t: 'Updates itself', desk_c2_d: 'No re-downloading: the app detects the new version, downloads in the background and installs when you close it — like Steam, without you noticing.'
-        desk_c3_t: 'Linked to your phone', desk_c3_d: 'Sign in with the same Google account on both and it is one life: notes, lists, folders and tasks sync between PC and phone automatically via your Drive.'
+        desk_c1_t: 'Starts with Windows', desk_c1_d: 'Turned on the PC? Simple Notes is already open — quietly in the tray. Your task alarms ring right on time, even with the app in the background.',
+        desk_c2_t: 'Updates itself', desk_c2_d: 'No re-downloading: the app detects the new version, downloads in the background and installs when you close it — like Steam, without you noticing.',
+        desk_c3_t: 'Linked to your phone', desk_c3_d: 'Sign in with the same Google account on both and it is one life: notes, lists, folders and tasks sync between PC and phone automatically via your Drive.',
         faq7_q: 'Is there a Windows version?', faq7_a: 'Yes! Installer and portable version in the Downloads tab. The PC app has the same OLED look, starts with Windows, sits in the tray with alarms and updates itself.',
-        faq8_q: 'How do I sync PC and phone?', faq8_a: 'Sign in with the same Google account on both. The backup lives in your Drive private folder (appDataFolder) — notes, lists, folders, tasks, images and audio reach PC and phone automatically.'
+        faq8_q: 'How do I sync PC and phone?', faq8_a: 'Sign in with the same Google account on both. The backup lives in your Drive private folder (appDataFolder) — notes, lists, folders, tasks, images and audio reach PC and phone automatically.',
         dl_title: 'Download Simple Notes Pro',
         dl_sub: 'On PC (Windows) and mobile (Android) — always the latest version.',
         dl_recomendado: 'Recommended',
@@ -1143,11 +1192,11 @@
         nav_recursos: 'Funciones', nav_dif: 'Destacados', nav_premium: 'Premium', nav_faq: 'FAQ', nav_baixar: 'Descargar', nav_downloads: 'Descargas',
         desk_title: 'También en Windows',
         desk_sub: 'La misma app, el mismo visual OLED y la misma cuenta — en la PC. Inicia con Windows y queda en la bandeja con las alarmas activas.',
-        desk_c1_t: 'Inicia con Windows', desk_c1_d: '¿Encendiste la PC? Simple Notes ya está abierta — discretamente en la bandeja. Las alarmas de tus tareas suenan a la hora exacta, incluso con la app en segundo plano.'
-        desk_c2_t: 'Se actualiza solo', desk_c2_d: 'Sin volver a descargar: la app detecta la versión nueva, descarga en segundo plano e instala cuando la cierras — como Steam, sin que te des cuenta.'
-        desk_c3_t: 'Vinculado al celular', desk_c3_d: 'Inicia sesión con la misma cuenta de Google en ambos y es la misma vida: notas, listas, carpetas y tareas se sincronizan entre PC y celular automáticamente por tu Drive.'
+        desk_c1_t: 'Inicia con Windows', desk_c1_d: '¿Encendiste la PC? Simple Notes ya está abierta — discretamente en la bandeja. Las alarmas de tus tareas suenan a la hora exacta, incluso con la app en segundo plano.',
+        desk_c2_t: 'Se actualiza solo', desk_c2_d: 'Sin volver a descargar: la app detecta la versión nueva, descarga en segundo plano e instala cuando la cierras — como Steam, sin que te des cuenta.',
+        desk_c3_t: 'Vinculado al celular', desk_c3_d: 'Inicia sesión con la misma cuenta de Google en ambos y es la misma vida: notas, listas, carpetas y tareas se sincronizan entre PC y celular automáticamente por tu Drive.',
         faq7_q: '¿Existe versión para Windows?', faq7_a: '¡Sí! Instalador y versión portátil en la pestaña Descargas. La app en PC tiene el mismo visual OLED, inicia con Windows, queda en la bandeja con las alarmas y se actualiza sola.',
-        faq8_q: '¿Cómo sincronizo la PC con el celular?', faq8_a: 'Inicia sesión con la misma cuenta de Google en ambos. El respaldo queda en la carpeta privada de tu Drive (appDataFolder) — notas, listas, carpetas, tareas, imágenes y audios llegan a PC y celular automáticamente.'
+        faq8_q: '¿Cómo sincronizo la PC con el celular?', faq8_a: 'Inicia sesión con la misma cuenta de Google en ambos. El respaldo queda en la carpeta privada de tu Drive (appDataFolder) — notas, listas, carpetas, tareas, imágenes y audios llegan a PC y celular automáticamente.',
         dl_title: 'Descarga Simple Notes Pro',
         dl_sub: 'En la PC (Windows) y en el celular (Android) — siempre la versión más reciente.',
         dl_recomendado: 'Recomendado',
