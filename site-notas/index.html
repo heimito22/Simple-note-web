@@ -1294,6 +1294,10 @@
       document.querySelectorAll('#langSwitch button').forEach(function (b) {
         b.addEventListener('click', function () { aplicarIdioma(b.getAttribute('data-lang')); });
       });
+      // Outra aba (index/downloads) trocou o idioma? Atualiza aqui na hora.
+      window.addEventListener('storage', function (e) {
+        if (e.key === 'snpro-lang' && e.newValue && I18N[e.newValue]) aplicarIdioma(e.newValue);
+      });
     })();
     </script>
 </body>
