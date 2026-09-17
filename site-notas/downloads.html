@@ -170,8 +170,40 @@
             background: rgba(10,132,255,0.18);
         }
 
+        /* ===== Menu hambúrguer (mobile) ===== */
+        .nav-hamburger {
+            display: none;
+            align-items: center; justify-content: center;
+            width: 44px; height: 44px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .nav-hamburger:hover { background: rgba(255,255,255,0.06); }
+
         @media (max-width: 720px) {
-            .nav-links a:not(.nav-cta) { display: none; }
+            .nav-hamburger { display: flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                flex-direction: column;
+                gap: 6px;
+                padding: 18px 20px 22px;
+                background: rgba(0,0,0,0.92);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+                animation: menuSobe .3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            }
+            @keyframes menuSobe { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+            .nav-links.aberto { display: flex; }
+            .nav-links a { width: 100%; text-align: center; padding: 13px 16px; font-size: 1rem; }
+            .lang-switch { margin: 12px auto 0; justify-content: center; }
+            .lang-switch button { padding: 10px 16px; font-size: 0.78rem; }
         }
 
         .lang-switch { display: flex; gap: 4px; margin-left: 8px; }
@@ -183,7 +215,6 @@
         }
         .lang-switch button:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
         .lang-switch button.ativo { background: var(--primary); border-color: var(--primary); color: #fff; }
-        @media (max-width: 720px) { .lang-switch { margin-left: 6px; } .lang-switch button { padding: 4px 7px; font-size: 0.65rem; } }
 
         /* ===== Seções ===== */
         section { padding: 110px 24px 60px; max-width: 1240px; margin: 0 auto; width: 100%; }
@@ -332,6 +363,7 @@
                 <div class="lang-switch" id="langSwitch" role="group" aria-label="Idioma / Language">
                     <button data-lang="pt" type="button">PT</button><button data-lang="en" type="button">EN</button><button data-lang="es" type="button">ES</button>
                 </div>
+                <button class="nav-hamburger" id="navHamb" type="button" aria-label="Menu"><i data-lucide="menu" size="22"></i></button>
             </div>
         </div>
     </nav>
@@ -418,6 +450,17 @@
         });
 
         lucide.createIcons({ attrs: { 'stroke-width': 2.5 } });
+
+        // Menu hambúrguer (mobile): abre/fecha e fecha ao clicar num link
+        (function () {
+            var hamb = document.getElementById('navHamb');
+            var links = document.querySelector('.nav-links');
+            if (!hamb || !links) return;
+            hamb.addEventListener('click', function () { links.classList.toggle('aberto'); });
+            links.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', function () { links.classList.remove('aberto'); });
+            });
+        })();
 
         // ===== DOWNLOADS: versão mais nova via GitHub Releases (grátis, sem servidor) =====
         // >>> TROQUE pelo seu repo: usuario/nome-do-repo <<<
