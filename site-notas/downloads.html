@@ -576,10 +576,10 @@
       }
     };
 
-    // Aplica o idioma salvo/detectado
+    // Aplica o idioma salvo/detectado — MESMA CHAVE do index (idioma interligado entre as páginas)
     (function () {
         var salvo = null;
-        try { salvo = localStorage.getItem('@site_idioma'); } catch (e) {}
+        try { salvo = localStorage.getItem('snpro-lang'); } catch (e) {}
         var nav = (navigator.language || 'pt').slice(0, 2);
         var idioma = (salvo && I18N[salvo]) ? salvo : (I18N[nav] ? nav : 'pt');
         aplicar(idioma);
@@ -600,8 +600,13 @@
         document.querySelectorAll('#langSwitch button').forEach(function (b) {
             b.addEventListener('click', function () {
                 aplicar(b.dataset.lang);
-                try { localStorage.setItem('@site_idioma', b.dataset.lang); } catch (e) {}
+                try { localStorage.setItem('snpro-lang', b.dataset.lang); } catch (e) {}
             });
+        });
+
+        // Outra aba (index/downloads) trocou o idioma? Atualiza aqui na hora.
+        window.addEventListener('storage', function (e) {
+            if (e.key === 'snpro-lang' && e.newValue && I18N[e.newValue]) aplicar(e.newValue);
         });
     })();
     </script>
